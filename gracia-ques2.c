@@ -2,17 +2,9 @@
 #include<math.h>
 //This program calculates the average of the scores of 5 students.
 
-int arr_length(int arr[]){
-	int i;
-	int count = 0;
-	for(i=0; arr[i] != '\0'; i++){
-		count++;
-	}
-	return count;
-}
 //MEAN
-double arr_mean(int arr[]){
-	int n = arr_length(arr); //get length of array
+double arr_mean(int arr[], int n){
+	//int n = arr_length(arr); //get length of array
 	double sum = 0.0;
 	double mean = 0.0;
 	for (int i = 0 ;i < 5; ++i){
@@ -28,8 +20,7 @@ int arr_median(int arr[]){
 	return arr[index];
 }*/
 //MODE
-int arr_mode(int arr[]){
-	int n = arr_length(arr); //get length of array
+int arr_mode(int arr[], int n){
 	int arr_freq[n]; //declare an array same length as og array
 	int counter = 0; //counts the amount of times it occurs
 	for(int i=0; i<n; i++){ //loops over 
@@ -40,30 +31,32 @@ int arr_mode(int arr[]){
 				arr_freq[j] = counter;
 			}
 		}
+      counter=0;
 	}
 	//get max value in array of frequencies
-	int max = arr[0];
+	int max = arr_freq[0];
+   int whers_max;
 	for(int i =0; i<n; i++){
-		if(arr[i] >= max){
-			max = arr[i];
+		if(arr_freq[i] >= max){
+			max = arr_freq[i];
+         whers_max = i;
 		}
+      //printf("%d \n",arr_freq[i]);
 	}
-	return max;
+	return arr[whers_max];
 }
 //SD
-int arr_sd(int arr[]){
-	int n = arr_length(arr); //get length of array
+int arr_sd(int arr[], int n){
+	double array_mean = arr_mean(arr,n);
 	double sum = 0.0;
-	double array_mean = arr_mean(arr);
-	double std_d = 0.0;
-	double diff = 0.0;
-	for(int i=0; i<n; i++){
-		diff= (arr[i]-array_mean);
+	double std_d;
+	double diff;
+	for(int i=0; i<n; ++i){
+		diff= arr[i]-array_mean;
 		sum += (diff*diff);
 	}
-	std_d = (sum)/n;
-	std_d = sqrt(std_d);
-
+	std_d = sqrt(sum/n);
+	return std_d;
 }
 
 int main(){
@@ -89,9 +82,9 @@ int main(){
 	avg = sum/5;
 	printf("the average score is: %lf \n", avg);
 
-	//int n = arr_length(x);
-	//printf("length of array is = %d \n", n);
-	double my_mean = arr_mean(x);
+	int n = 5; //array length to call in functions
+
+	double my_mean = arr_mean(x, n);
 	printf("The mean is = %lf \n", my_mean);
 	/*
 	int med = arr_median(x);
@@ -99,25 +92,14 @@ int main(){
 	*/
 
 	//CALL MODE
-	int mod = arr_mode(x);
+	int mod = arr_mode(x, n);
 	printf("The mode is = %d \n", mod);
 
 	//CALL SD
-	double my_sd = arr_sd(x);
+	double my_sd = arr_sd(x, n);
 	printf("The SD is = %lf \n", my_sd);
 	
 }
 //ANSWER 2a. -> This code calculates the average of the values in the array of size 5.
 
-//2b.
-/*MEAN
-CALCULATE SIZE OF THE ARRAY
-int arr_size;
-arr_size = x.size().
-printf("size is = %d \n", arr_size);
-*/
-
-
-
-//MODE
 
